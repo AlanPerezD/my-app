@@ -4,16 +4,17 @@ import React from 'react'
 import Footer from './Footer'
 import Navbar from './Navbar'
 
+
 const Layout = ({ children }) => {
   return (
-    <div className={styles.layout}>
+    <div className='layout'>
       <Head>
         <title>TiendaOnline</title>
       </Head>
       <header>
         <Navbar />
       </header>
-      <main className={styles.main-container}>
+      <main className='main-container'>
         {children}
       </main>
       <footer>
