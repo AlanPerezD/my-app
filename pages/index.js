@@ -1,31 +1,34 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
+import React from 'react'
 
-export default function Home({bannerData, products}) {
-  return (
-    <div>
-      <HeroBanner heroBanner={bannerData} />
-      <div className='products-heading'>
-        <h2>Productos más vendidos</h2>
-        <p>Gran variedad de modelos</p>
-      </div>
-      
-      <div className='products-container'>
-        ProductsRow
-      </div>
+import { client } from '@/lib/client'
+import { HeroBanner } from '@/components'
 
-      FooterBanner
+const Home = ({bannerData, products}) => (
+  <div>
+    <HeroBanner heroBanner={bannerData[0]} />
+    <div className='products-heading'>
+      <h2>Productos más vendidos</h2>
+      <p>Gran variedad de modelos</p>
     </div>
-  )
-}
+    
+    <div className='products-container'>
+      ProductsRow
+    </div>
+
+    FooterBanner
+  </div>
+)
 
 export const getServerSideProps = async () => {
   const query = '*[_type == "product"]';
   const products = await client.fetch(query);
 
+  const bannerQuery = '*[_type == "banner"]';
+  const bannerData = await client.fetch(bannerQuery);
+
   return {
     props: { products, bannerData }
   }
 }
+
+export default Home;
